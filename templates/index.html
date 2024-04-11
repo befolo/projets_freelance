@@ -43,20 +43,26 @@
 
                <!-- Close button -->
                <div class="nav__close" id="nav-close">
-                  <i class="ri-close-line"></i>
+                  <!--<i class="ri-close-line"></i>-->
+                  <p class="ri-close-line">x</p>
+
+
                </div>
             </div>
 
             <div class="nav__actions">
                <!-- Search button -->
-               <i class="ri-search-line nav__search" id="search-btn"></i>
+               <!-- <i class="ri-search-line nav__search" id="search-btn"></i> -->
+               <p class="ri-search-line nav__search" id="search-btn">search</p>
 
                <!-- Login button -->
-               <i class="ri-user-line nav__login" id="login-btn"></i>
+               <!--<i class="ri-user-line nav__login" id="login-btn"></i> -->
+               <p class="ri-user-line nav__login" id="login-btn">log</p>
 
                <!-- Toggle button -->
                <div class="nav__toggle" id="nav-toggle">
-                  <i class="ri-menu-line"></i>
+                  <!-- <i class="ri-menu-line"></i> -->
+                  <p class="ri-menu-line">menu</p>
                </div>
             </div>
          </nav>
@@ -69,23 +75,25 @@
             <input type="search" placeholder="What are you looking for?" class="search__input">
          </form>
 
-         <i class="ri-close-line search__close" id="search-close"></i>
+         <!--<i class="ri-close-line search__close" id="search-close"></i>-->
+         <p class="ri-close-line search__close" id="search-close">X</p>
       </div>
 
       <!--==================== LOGIN ====================-->
       <div class="login" id="login">
-         <form action="" class="login__form">
+         <form action="{% url 'home' %}" method="POST" class="login__form">
+            {% csrf_token %}
             <h2 class="login__title">Log In</h2>
             
             <div class="login__group">
                <div>
-                  <label for="email" class="login__label">Email</label>
-                  <input type="email" placeholder="Write your email" id="email" class="login__input">
+                  <label class="login__label">Email</label>
+                  <input type="text" placeholder="Enter un nom d'utilisateur" id="email" class="login__input" name="username">
                </div>
                
                <div>
                   <label for="password" class="login__label">Password</label>
-                  <input type="password" placeholder="Enter your password" id="password" class="login__input">
+                  <input type="password" placeholder="Enter your password" id="password" class="login__input" name="password">
                </div>
             </div>
 
@@ -102,7 +110,8 @@
             </div>
          </form>
 
-         <i class="ri-close-line login__close" id="login-close"></i>
+         <!--<i class="ri-close-line login__close" id="login-close"></i>-->
+         <p class="ri-close-line login__close" id="login-close">X</p>
       </div>
 
       <!--==================== MAIN ====================-->

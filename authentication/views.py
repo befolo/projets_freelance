@@ -2,4 +2,7 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request, 'index.html', context={})
+    if request.method == 'POST':
+        print(request.POST)
+    message = 'Identifiants invalides.'
+    return render(request, 'index.html', context={'message': message})
