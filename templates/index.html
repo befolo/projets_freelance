@@ -1,5 +1,5 @@
 {% load static %}
-   <html lang="en">
+   <html lang="fr">
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
 
       <!--=============== CSS ===============-->
       <link rel="stylesheet" href="{% static 'styles.css' %}">
+      {% block style %}{% endblock style %}
 
       <title>Responsive navbar with search and login - Bedimcode</title>
    </head>
@@ -51,9 +52,6 @@
             </div>
 
             <div class="nav__actions">
-               <!-- Search button -->
-               <!-- <i class="ri-search-line nav__search" id="search-btn"></i> -->
-               <p class="ri-search-line nav__search" id="search-btn">search</p>
 
                <!-- Login button -->
                <!--<i class="ri-user-line nav__login" id="login-btn"></i> -->
@@ -81,14 +79,16 @@
 
       <!--==================== LOGIN ====================-->
       <div class="login" id="login">
+         {% if not user.is_authenticated %}
          <form action="{% url 'home' %}" method="POST" class="login__form">
             {% csrf_token %}
+            <p>{{ message }}</p>
             <h2 class="login__title">Log In</h2>
             
             <div class="login__group">
                <div>
                   <label class="login__label">Email</label>
-                  <input type="text" placeholder="Enter un nom d'utilisateur" id="email" class="login__input" name="username">
+                  <input type="email" placeholder="Enter votre email" id="email" class="login__input" piname="email">
                </div>
                
                <div>
@@ -109,17 +109,19 @@
                <button type="submit" class="login__button">Log In</button>
             </div>
          </form>
-
+         {% endif %}
          <!--<i class="ri-close-line login__close" id="login-close"></i>-->
          <p class="ri-close-line login__close" id="login-close">X</p>
       </div>
 
       <!--==================== MAIN ====================-->
       <main class="main">
-         <img src="{% static 'img/bg-image.png' %}" alt="image" class="main__bg">
+            {% block content %}{% endblock content %}
       </main>
       
       <!--=============== MAIN JS ===============-->
       <script src="{% static 'main.js' %}"></script>
+
+      {% block script %}{% endblock script %}
    </body>
 </html>
