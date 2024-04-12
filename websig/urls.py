@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path
 
 import authentication.views
+import projet.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', authentication.views.home, name='home'),
+    path('connexion/', authentication.views.connexion, name='connexion'),
+    path('home/', projet.views.home, name='home'),
+    path('deconnexion/', authentication.views.deconnexion, name='deconnexion'),
 ]

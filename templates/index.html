@@ -10,8 +10,6 @@
       <!--=============== CSS ===============-->
       <link rel="stylesheet" href="{% static 'styles.css' %}">
       {% block style %}{% endblock style %}
-
-      <title>Responsive navbar with search and login - Bedimcode</title>
    </head>
    <body>
       <!--==================== HEADER ====================-->
@@ -34,11 +32,18 @@
                   </li>
 
                   <li class="nav__item">
-                     <a href="#" class="nav__link">Featured</a>
-                  </li>
 
-                  <li class="nav__item">
-                     <a href="#" class="nav__link">Contact Me</a>
+                     {% if user.is_authenticated %}
+                     <p class="nav__link">
+                        Bonjour, {{ user.username }}
+                        <a href="{% url 'deconnexion' %}" >Se déconnecter</a>
+                     </p>
+                     {% else %}
+                     <p class="nav__link">
+                        <a href="{% url 'connexion' %}" >Se connecter</a>
+                     </p>
+                     {% endif %}
+
                   </li>
                </ul>
 
@@ -79,10 +84,7 @@
 
       <!--==================== LOGIN ====================-->
       <div class="login" id="login">
-         {% if not user.is_authenticated %}
          <form action="{% url 'home' %}" method="POST" class="login__form">
-            {% csrf_token %}
-            <p>{{ message }}</p>
             <h2 class="login__title">Log In</h2>
             
             <div class="login__group">
@@ -109,7 +111,6 @@
                <button type="submit" class="login__button">Log In</button>
             </div>
          </form>
-         {% endif %}
          <!--<i class="ri-close-line login__close" id="login-close"></i>-->
          <p class="ri-close-line login__close" id="login-close">X</p>
       </div>

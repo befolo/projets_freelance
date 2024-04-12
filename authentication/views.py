@@ -1,19 +1,28 @@
-from django.shortcuts import render
-from .models import User
-from django.contrib.auth import login, authenticate
-from . import forms
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import messages
 
 
-def home(request):
-    message = ''
-
+def connexion(request):
+    msg = ''
     if request.method == 'POST':
         email = request.POST.get('email', None)
         password = request.POST.get('password', None)
 
-        user = User.objects.filter(email=email).first()
+        user = authenticate(email=email, password=password)
         if user:
-            message = 'ok'
-        message = 'ras'
-    return render(
-        request, 'authentication/conexion.html', context={'message': message})
+            login(request, user)
+            return redirect('home')
+        else:
+            msg = 'Identifiants Invalid, veillez recommencer ! '
+            messages.error(request, msg)
+    return render(request, 'authentication/conexion.html')
+
+
+def deconnexion(request):
+    logout(request)
+    return redirect('home')
+
+
+def creer_un_compte(request):
+    pass
