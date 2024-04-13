@@ -19,10 +19,13 @@ from django.urls import path
 
 import authentication.views
 import projet.views
+import map.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('connexion/', authentication.views.connexion, name='connexion'),
     path('home/', projet.views.home, name='home'),
     path('deconnexion/', authentication.views.deconnexion, name='deconnexion'),
+    path('inscription/', authentication.views.creer_un_compte, name='inscription'),
+    path('map/', map.views.view_map, name='map'),
 ]
