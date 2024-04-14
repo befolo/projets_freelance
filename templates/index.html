@@ -9,7 +9,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
 
       <!--=============== CSS ===============-->
-      <link rel="stylesheet" href="{% static 'styles.css' %}">
+      <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
       {% block style %}{% endblock style %}
    </head>
    <body>
@@ -21,13 +21,8 @@
             <div class="nav__menu" id="nav-menu">
                <ul class="nav__list">
                   <li class="nav__item">
-                     <a href="#" class="nav__link">Acceuil</a>
+                     <a href="{% url 'home' %}" class="nav__link">Acceuil</a>
                   </li>
-
-                  <li class="nav__item">
-                     <a href="{% url 'map' %}" class="nav__link">Map</a>
-                  </li>
-
                   {% if user.is_authenticated %}
                   <li class="nav__item">
                      <a href="#" class="nav__link">Comtribuer</a>
@@ -117,11 +112,13 @@
 
       <!--==================== MAIN ====================-->
       <main class="main">
+         <div class="main__bg">
             {% block content %}{% endblock content %}
+         </div>
       </main>
       
       <!--=============== MAIN JS ===============-->
-      <script src="{% static 'main.js' %}"></script>
+      <script src="{% static 'assets/js/main.js' %}"></script>
       {% block script %}{% endblock script %}
    </body>
 </html>

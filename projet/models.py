@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from map.models import SpatialProjet
 from PIL import Image
 
 
@@ -25,7 +24,6 @@ class Photo(models.Model):
 class Projet(models.Model):
     auteur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     photo = models.ForeignKey(Photo, null=True, on_delete=models.SET_NULL, blank=True)
-    coordonnee = models.OneToOneField(SpatialProjet, on_delete=models.CASCADE)
     lescommentaire = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Commentaire',
                                          related_name='commentaires')
     partiprenantes = models.ManyToManyField(settings.AUTH_USER_MODEL, through='PartiPrenante',

@@ -100,7 +100,7 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  z-index: -1;
+  z-index: 98;
 }
 
 .search,
@@ -132,7 +132,7 @@ img {
 
 /*=============== HEADER & NAV ===============*/
 .header {
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;

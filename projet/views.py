@@ -2,5 +2,5 @@ from django.shortcuts import render
 
 
 def home(request):
-    return render(request,'index.html', context={})
+    return render(request,'map/map.html', context={})
 
