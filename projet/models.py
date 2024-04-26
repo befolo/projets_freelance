@@ -29,18 +29,21 @@ class Projet(models.Model):
     partiprenantes = models.ManyToManyField(settings.AUTH_USER_MODEL, through='PartiPrenante',
                                             related_name='parti_prenantes')
     titre = models.CharField(max_length=128, verbose_name='titre')
-    description = models.CharField(max_length=5000, blank=False, verbose_name='description')
-    descrip_reduit = models.CharField(max_length=350)
+    description = models.CharField(max_length=5000, verbose_name='description')
+    descrip_reduit = models.CharField(max_length=350, null=True)
     financement = models.CharField(max_length=100, verbose_name='Financement')
     entreprise = models.CharField(max_length=100, verbose_name='Entreprise')
     delais_execution = models.CharField(max_length=50, verbose_name='Delais d\'execution')
     date_created = models.DateTimeField(auto_now_add=True)
 
     def _get_descrip_reduit(self):
-        if len(self.description.split('')) > 325:
+        if len(self.description) > 325:
             return self.description[:325]
         else:
             return self.description
+
+    def __str__(self):
+        return f'{self.titre}'
 
     def save(self, *args, **kwargs):
         self.descrip_reduit = self._get_descrip_reduit()
@@ -53,6 +56,9 @@ class Commentaire(models.Model):
     photo = models.OneToOneField(Photo, on_delete=models.CASCADE)
     contenu = models.CharField(max_length=5000, blank=False, verbose_name='contenu')
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.commentateur.username} \n{self.leprojet.titre}'
 
 
 # comment creer des formulaire avec des relations
@@ -75,3 +81,6 @@ class PartiPrenante(models.Model):
     projet = models.ForeignKey(Projet, on_delete=models.CASCADE)
     role = models.CharField(max_length=30, choices=ROLE_CHOICES, verbose_name='rôle')
     specifications = models.CharField(max_length=100, verbose_name='specifications du rôle')
+
+    def __str__(self):
+        return f'{self.lepartiprenant.username} : {self.role} - {self.projet.titre}'

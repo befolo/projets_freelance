@@ -26,6 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('connexion/', authentication.views.connexion, name='connexion'),
     path('', projet.views.home, name='home'),
+    path('data/', projet.views.load_data, name='data'),
     path('deconnexion/', authentication.views.deconnexion, name='deconnexion'),
     path('inscription/', authentication.views.creer_un_compte, name='inscription'),
 ]

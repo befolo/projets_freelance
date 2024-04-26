@@ -1,4 +1,84 @@
-#map {
-    height: 100%;
+.container_1{
+    display: flex;
+    width: 100%
 }
 
+#map{
+    height: 100vh;
+    width: 75vw;
+}
+
+.office-list{
+    width: 25vw;
+    height: 100vh;
+    overflow: auto;
+    background: whitesmoke;
+}
+
+.leaflet-popup-content-wrapper{
+    padding: 0;
+    overflow: hidden;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content{
+    margin: 0;
+}
+
+.leaflet-popup-content-wrapper h4{
+    padding: 16px;
+    background: #466799;
+    color: #fff;
+    font-size: 16px;
+}
+
+.leaflet-popup-content-wrapper p{
+    padding: 0 16px;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content .phone-number{
+    padding: 16px;
+    padding-top: 0;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content .phone-number a{
+    color: #466799;
+    font-size: 14px;
+}
+
+.office-list .heading {
+    background: #466799;
+    color: #fff;
+}
+
+.office-list .heading h2 {
+    padding: 1rem;
+}
+
+.office-list ul.list {
+    padding: 0 1rem;
+    list-style-type: none;
+}
+
+.office-list .office-item {
+    margin: 1rem 0;
+    border-bottom:  1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1rem;
+}
+
+.office-list li:last-child .office-item {
+    border: none;
+}
+
+.office-list .office-item a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #466799;
+    font-weight: 700;
+}
+
+.office-list .office-item p {
+    font-size: 20px;
+    color: #404040;
+}
