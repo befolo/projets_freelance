@@ -9,11 +9,11 @@ def load_data(request):
     spatial = SpatialProjet.objects.all()
 
     # Créer une liste pour stocker les données
-    features = []
+    geojson = []
 
     for elt in spatial:
         # Ajouter chaque objet et ses relations à la liste
-        features.append({
+        geojson.append({
             "type": "Feature",
             "geometry": {
                 "type": "Point",
@@ -28,11 +28,6 @@ def load_data(request):
             }
         })
 
-    # Créer le GeoJSON final
-    geojson = {
-        "type": "FeatureCollection",
-        "features": features
-    }
 
     # Retourner les données en tant que réponse JSON
     return JsonResponse(geojson, safe=False)

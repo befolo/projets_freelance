@@ -22,49 +22,15 @@ function showPopup(feature, layer){
 function makePopupcontent(office){
     return `
         <div>
-            <h4>${office.properties.name}</h4>
-            <p>${office.properties.address}</p>
+            <h4>${office.properties.titre}</h4>
+            <p>${office.properties.descrip}</p>
             <div class="phone-number">
-                <a href="tel:${office.properties.phone}">${office.properties.phone}</a>
+                <a href="#">${office.properties.delais}</a>
             </div>
         </div
     `
 }
 
-var officeLayer = L.geoJSON(officeList, {
-    onEachFeature: showPopup,
-    pointToLayer: function(feature, latlng){
-        return L.marker(latlng, {icon: myIcon});
-    }
-});
-
-officeLayer.addTo(map);
-
-function populateOffice() {
-    const ul = document.querySelector('.list');
-    officeList.forEach((office) => {
-        const li = document.createElement('li');
-        const div = document.createElement('div');
-        const a = document.createElement('a');
-        const p = document.createElement('p');
-
-        a.addEventListener("click", ()=>{
-            flytoStore(office);
-        });
-
-        div.classList.add('office-item');
-        a.innerHTML = office.properties.name;
-        a.href = '#';
-        p.innerHTML = office.properties.address;
-
-        div.appendChild(a);
-        div.appendChild(p);
-        li.appendChild(div);
-        ul.appendChild(li);
-    });
-}
-
-populateOffice()
 
 function flytoStore(office) {
     const lat = office.geometry.coordinates[1];
@@ -92,5 +58,39 @@ $.ajax({
 
         // Vous pouvez maintenant utiliser les données pour les afficher dans votre page
         // Par exemple, vous pouvez les ajouter à un élément de votre page :
+        var officeLayer = L.geoJSON(geojson, {
+            onEachFeature: showPopup,
+            pointToLayer: function(feature, latlng){
+            return L.marker(latlng, {icon: myIcon});
+            }
+        });
+
+        officeLayer.addTo(map);
+
+        function populateOffice() {
+            const ul = document.querySelector('.list');
+            geojson.forEach((geojson) => {
+                const li = document.createElement('li');
+                const div = document.createElement('div');
+                const a = document.createElement('a');
+                const p = document.createElement('p');
+
+                a.addEventListener("click", ()=>{
+                    flytoStore(geojson);
+                });
+
+                div.classList.add('office-item');
+                a.innerHTML = geojson.properties.titre;
+                a.href = '#';
+                p.innerHTML = geojson.properties.descrip;
+
+                div.appendChild(a);
+                div.appendChild(p);
+                li.appendChild(div);
+                ul.appendChild(li);
+            });
+        }
+
+        populateOffice()
         }
     });
