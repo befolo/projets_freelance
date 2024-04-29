@@ -29,6 +29,7 @@ urlpatterns = [
     path('data/', projet.views.load_data, name='data'),
     path('deconnexion/', authentication.views.deconnexion, name='deconnexion'),
     path('inscription/', authentication.views.creer_un_compte, name='inscription'),
+    path('projet/<int:projet_id>', projet.views.projet_detail, name='view_projet'),
 ]
 
 if settings.DEBUG:

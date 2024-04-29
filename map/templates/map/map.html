@@ -1,17 +1,22 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block style %}
+    <title>Acceuil</title>
     <link rel="stylesheet" href="{% static 'map/ressources/leaflet/leaflet.css' %}">
     <link rel="stylesheet" href="{% static 'map/style_map.css' %}">
 {% endblock style %}
 
 {% block content %}
-    <div class="container_1" id="myData" data-mykey="{{ data }}">
+    <div class="container_1">
         <div class="office-list">
             <div class="heading">
-               <h2>Corporate Offices</h2>
+               <h2>Les Projets</h2>
             </div>
-            <ul class="list"></ul>
+            <ul class="list">
+                {% for instance in projets %}
+                    {% include 'map/partials/projet_list.html' with spatial=instance %}
+                {% endfor %}
+            </ul>
         </div>
         <div id="map"></div>
     </div>
@@ -21,9 +26,6 @@
 {% block script %}
     <script >
         var staticUrl = "{% static 'map/ressources/images/office.png' %}";
-    </script>
-    <script>
-        var myDataValue = {{ data }};
     </script>
     <script src="{% static 'map/ressources/jQuery/jquery-3.7.1.min.js' %}"></script>
     <script src="{% static 'map/ressources/data/offices.js' %}"></script>

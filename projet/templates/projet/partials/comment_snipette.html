@@ -1,0 +1,20 @@
+{% load projet_extras %}
+<li class="car">
+    <div>
+        <img src="{{ instance.photo.image.url }}" alt="">
+    </div>
+    <span>{{ instance.photo.caption }}</span>
+    <span class="prix">Ecrite par {% get_poster_display instance.commentateur %}</span>
+    <span>{{ instance.date_created|get_posted_at_display }}</span>
+    <a href="#" class="open-popup">Voir le contenu</a>
+
+    <!-- Popup avec les détails de l'instance -->
+    <div class="popup" id="popup-{{ instance.id }}">
+        <div class="popup-content service" >
+            <!-- Vos détails d'instance ici -->
+            <img src="{{ instance.photo.image.url }}" alt="">
+            <p>{{ instance.contenu }}</p>
+            <a href="#" class="close-popup">Fermer</a>
+        </div>
+    </div>
+</li>

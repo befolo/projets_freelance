@@ -37,8 +37,8 @@ class Projet(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def _get_descrip_reduit(self):
-        if len(self.description) > 325:
-            return self.description[:325]
+        if len(self.description) > 150:
+            return self.description[:150]
         else:
             return self.description
 

@@ -47,8 +47,6 @@ function flytoStore(office) {
 }
 
 
-console.log('Valeur des données :', myDataValue);
-
 $.ajax({
     url: '/data/',  // Remplacez par l'URL de votre vue
     method: 'GET',
@@ -68,26 +66,12 @@ $.ajax({
         officeLayer.addTo(map);
 
         function populateOffice() {
-            const ul = document.querySelector('.list');
             geojson.forEach((geojson) => {
-                const li = document.createElement('li');
-                const div = document.createElement('div');
-                const a = document.createElement('a');
-                const p = document.createElement('p');
+                const a = document.getElementById(geojson.properties.id);
 
                 a.addEventListener("click", ()=>{
                     flytoStore(geojson);
                 });
-
-                div.classList.add('office-item');
-                a.innerHTML = geojson.properties.titre;
-                a.href = '#';
-                p.innerHTML = geojson.properties.descrip;
-
-                div.appendChild(a);
-                div.appendChild(p);
-                li.appendChild(div);
-                ul.appendChild(li);
             });
         }
 

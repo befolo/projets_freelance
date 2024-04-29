@@ -1,0 +1,10 @@
+<li>
+    <div class="office-item" >
+        <a id="{{ spatial.leprojet.id }}" href="#">{{ spatial.leprojet.titre }}</a>
+        <p>{{ spatial.leprojet.descrip_reduit }} <br> <strong> Entreprise en charge : {{ spatial.leprojet.entreprise }} </strong>
+            <br> <strong> Financé par : {{ spatial.leprojet.financement }} </strong>
+        </p>
+        <a class="office-link-detail" href="{% url 'view_projet' spatial.leprojet.id %}"> consulter le projet</a>
+    </div>
+</li>
+

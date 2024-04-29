@@ -1,0 +1,125 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load projet_extras %}
+{% block style %}
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Projet - {{ projet.titre }}</title>
+<link rel="stylesheet" href="{% static 'projet/style.css' %}">
+{% endblock style %}
+
+{% block content %}
+    <!-- section Acceuil -->
+     
+    <section id="home">
+        <div class="left">
+            <h1><span>{{ projet.titre }}</span></h1>
+            <p>{{ projet.description }}</p>
+            {% if user.is_authenticated %}
+            <a href="#" id="login-btn">Contribuer</a>
+            {% else %}
+            <a href="{% url 'connexion' %}" >Connectez-vous pour Contribuer au Projet</a>
+            {% endif %}
+        </div>
+        <div class="right">
+            <img src="{{ projet.photo.image.url }}">
+        </div>
+    </section>
+
+    <!-- section description -->
+    <section id="services">
+        <h1 class="section_title">descriptions</h1>
+        <div class="list_services">
+            <div class="service">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Informations suplementaires sur le projet : <br> {{ projet.titre }}</h3>
+                <p>
+                    Delais d'exécution du projet : {{ projet.delais_execution }} <br>
+                    Financement : {{ projet.financement }} <br>
+                    Entreprice en charge : {{ projet.entreprise }} <br>
+                    Mise en ligne le : {{ projet.date_created }}
+                </p>
+            </div>
+            <div class="service">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Autorite contractante</h3>
+                <p>Engage les fonds pour la realisation du projet.</p>
+                 <a href="#" class="read_more">{{ autCont.0.lepartiprenant.username }} : {{ autCont.0.lepartiprenant.email }}</a>
+            </div>
+            <div class="service">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Maitre d'ouvrage</h3>
+                <p>Responsable de mener à bien la réalisation du projet dans les delais et les couts imperatis.</p>
+                 <a href="#" class="read_more">{{ maitDvre.0.lepartiprenant.username }} : {{ maitDvre.0.lepartiprenant.email }}</a>
+            </div>
+            <div class="service">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Chef du marché</h3>
+                <p>Professionnel du domaine chargé d'élaborer l'entierete de la strategie commerciale du projet.</p>
+                 <a href="#" class="read_more">{{ chefDmarch.0.lepartiprenant.username }} : {{ chefDmarch.0.lepartiprenant.email }}</a>
+            </div>
+            <div class="service">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Ingenieur du marché</h3>
+                <p>Assure le suivi, le contrôle technique et financier de l'execution du projet.</p>
+                 <a href="#" class="read_more">{{ ingDmarch.0.lepartiprenant.username }} : {{ ingDmarch.0.lepartiprenant.email }}</a>
+            </div>
+            <div class="service">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>Maitrise d'œuvre</h3>
+                <p>Assure la conduite opérationnelle des travaux en matière de couts,delais et de choix techniques.</p>
+                 <a href="#" class="read_more">{{ maitDoevr.0.lepartiprenant.username }} : {{ maitDoevr.0.lepartiprenant.email }}</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- section vehicule -->
+
+    <section id="cars">
+        <h1 class="section_title">Les Contributions du Projet</h1>
+        <div class="images">
+            <ul>
+                {% for instance in commentaire %}
+                    {% include 'projet/partials/comment_snipette.html'%}
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+{% endblock content %}
+{% block body %}
+      <!--==================== LOGIN ====================-->
+<div class="login" id="login">
+    <form action="" method="post" enctype="multipart/form-data" class="login__form">
+        {% csrf_token %}
+        <h2 class="login__title">Ajouter un commentaire</h2>
+
+        <div class="login__group">
+            <div>
+                <label for="{{ photo_form.image.id_for_label }}" class="login__label">Image</label>
+                <input type="file" id="{{ photo_form.image.id_for_label }}" class="login__input" name="{{ photo_form.image.html_name }}" required>
+            </div>
+
+            <div>
+                <label for="{{ photo_form.caption.id_for_label }}" class="login__label">Caption</label>
+                <input type="text" id="{{ photo_form.caption.id_for_label }}" class="login__input" name="{{ photo_form.caption.html_name }}" value="{{ photo_form.caption.value|default_if_none:'' }}" required>
+            </div>
+
+            <div>
+                <label for="{{ commentaire_form.contenu.id_for_label }}" class="login__label">Contenu</label>
+                <textarea id="{{ commentaire_form.contenu.id_for_label }}" class="login__input" name="{{ commentaire_form.contenu.html_name }}" required>{{ commentaire_form.contenu.value|default_if_none:'' }}</textarea>
+            </div>
+            <div>
+                <button type="submit" class="login__button">Ajouter</button>
+            </div>
+        </div>
+    </form>
+
+    <i class="ri-close-line login__close" id="login-close"></i>
+</div>
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static 'map/ressources/jQuery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'projet/main_popup.js' %}"></script>
+{% endblock script %}
+

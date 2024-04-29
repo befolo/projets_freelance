@@ -1,0 +1,212 @@
+
+#home {
+    margin-top: 50px;
+    height: calc(100vh - 90px);
+    padding: 0 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+/*Scrollbar CSS*/
+
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb{
+    background-color: hsl(230, 75%, 56%);
+}
+
+#home .left, .description .left {
+    width: 40%;
+}
+#home .left h1, .description .left h1{
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+#home .left h1 span, .description .left h1 span{
+    color: hsl(230, 75%, 56%);
+}
+#home .left p, .description .left p {
+    margin-bottom: 30px;
+    color: #999;
+    font-size: 18px;
+}
+#home .left a, .description .left a {
+    background-color: hsl(230, 75%, 56%);
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    transition: 0.5s;
+}
+#home .left a:hover, .description .left a:hover {
+    background-color: #000;
+}
+#home .right, , .description .right {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#home .right img {
+    width: 100%;
+}
+#cars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.section_title {
+    text-transform: uppercase;
+    position: relative;
+    font-size: 25px;
+}
+.section_title:before {
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+    content: "";
+    background-color: hsl(230, 75%, 56%);
+    width: 100%;
+    height: 5px;
+    border-radius: 6px;
+}
+.section_title:after {
+    position: absolute;
+    top: 0;
+    left: -10px;
+    content: "";
+    background-color: hsl(230, 75%, 56%);
+    width: 100%;
+    height: 5px;
+    border-radius: 6px;
+}
+.images {
+    margin: 30px;
+    padding: auto;
+}
+.images ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vh;
+}
+.images li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2.665%;
+    transition: 0.5s;
+    height: 35vh;
+    width: 40vh;
+}
+
+.images li div {
+    width: 100%;
+    height: 60%;
+    margin-bottom: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.images li div img {
+    height: 100%;
+    width: 100%;
+}
+
+.images li:hover {
+    transform: scale(1.1);
+    margin: 20px;
+}
+.images li span {
+    color: hsl(230, 75%, 56%);
+    font-size: 18px;
+    text-align: center;
+}
+#cars li span.prix {
+   color: hsl(230, 75%, 56%);
+   font-weight: bold;
+   margin-bottom: 10px;
+   font-size: 15px;
+}
+#cars li a {
+    background-color: hsl(230, 75%, 56%);
+    color: #fff;
+    padding: 5px 20px;
+    font-size: 15px;
+}
+#services {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+.list_services {
+    margin: 100px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.service {
+    width: 25%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    padding: 20px;
+    margin: 20px;
+}
+.service i {
+    font-size: 25px;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: hsl(230, 75%, 56%);
+    color: #fff;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+.service h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.service p {
+    font-size: 20px;
+}
+.service a {
+    margin-top: 10px;
+    color: hsl(230, 75%, 56%);
+    padding: 5px 20px;
+    border: 1px solid hsl(230, 75%, 56%);
+    font-size: 15px;
+}
+
+
+.popup {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;  /* Assurez-vous que la popup est au-dessus de tous les autres éléments */
+    border-radius: .5rem;
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    width: 50%;
+    background: #fff;
+    border-radius: .5rem;
+}

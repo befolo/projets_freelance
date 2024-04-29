@@ -28,7 +28,7 @@
 
 .leaflet-popup-content-wrapper h4{
     padding: 16px;
-    background: #466799;
+    background: hsl(230, 75%, 56%);
     color: #fff;
     font-size: 16px;
 }
@@ -45,12 +45,12 @@
 }
 
 .leaflet-popup-content-wrapper .leaflet-popup-content .phone-number a{
-    color: #466799;
+    color: hsl(230, 75%, 56%);
     font-size: 14px;
 }
 
 .office-list .heading {
-    background: #466799;
+    background: hsl(230, 75%, 56%);
     color: #fff;
 }
 
@@ -76,8 +76,15 @@
 .office-list .office-item a {
     text-decoration: none;
     font-size: 25px;
-    color: #466799;
+    color: hsl(230, 75%, 56%);
     font-weight: 700;
+}
+
+.office-list .office-item a.office-link-detail {
+    text-decoration: none;
+    font-size: 15px;
+    color: hsl(230, 75%, 56%);
+    font-weight: 300;
 }
 
 .office-list .office-item p {
