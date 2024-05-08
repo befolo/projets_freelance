@@ -96,3 +96,15 @@ def projet_detail(request, projet_id):
     return render(request, "projet/projet_detail.html", context=context)
 
 
+def toutlescommentaires(request):
+    commentaire_1 = Commentaire.objects.all()
+    commentaire_1 = sorted(
+        chain(commentaire_1),
+        key=lambda instance: instance.date_created,
+        reverse=True
+    )
+
+    context = {
+        "commentaire": commentaire_1,
+    }
+    return render(request, "projet/allcomment.html", context=context)

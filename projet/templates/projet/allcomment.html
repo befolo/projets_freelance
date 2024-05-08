@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load projet_extras %}
+{% block style %}
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Toutes Les Contributions</title>
+<link rel="stylesheet" href="{% static 'projet/style.css' %}">
+{% endblock style %}
+
+{% block content %}
+    <section id="cars_1">
+        <h1 class="section_title">Les Contributions</h1>
+        <div class="images">
+            <ul>
+                {% for instance in commentaire %}
+                    {% include 'projet/partials/comment_snipette.html'%}
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static 'map/ressources/jQuery/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'projet/main_popup.js' %}"></script>
+{% endblock script %}
+

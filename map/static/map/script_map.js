@@ -24,9 +24,6 @@ function makePopupcontent(office){
         <div>
             <h4>${office.properties.titre}</h4>
             <p>${office.properties.descrip}</p>
-            <div class="phone-number">
-                <a href="#">${office.properties.delais}</a>
-            </div>
         </div
     `
 }

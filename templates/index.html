@@ -15,19 +15,18 @@
       <!--==================== HEADER ====================-->
       <header class="header" id="header">
          <nav class="nav container">
-            <a href="#" class="nav__logo">Logo</a>
+            <a href="{% url 'home' %}" class="nav__logo">
+               <img src="{% static 'assets/img/logo_enset.png' %}" alt="logo-enset">
+            </a>
 
             <div class="nav__menu" id="nav-menu">
                <ul class="nav__list">
                   <li class="nav__item">
                      <a href="{% url 'home' %}" class="nav__link">Acceuil</a>
                   </li>
-                  {% if user.is_authenticated %}
                   <li class="nav__item">
-                     <a href="#" class="nav__link">Comtribuer</a>
+                     <a href="{% url 'contribution' %}" class="nav__link">Comtributions</a>
                   </li>
-                  {% endif %}
-
                   <li class="nav__item">
 
                      {% if user.is_authenticated %}

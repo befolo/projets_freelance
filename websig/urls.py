@@ -30,6 +30,7 @@ urlpatterns = [
     path('deconnexion/', authentication.views.deconnexion, name='deconnexion'),
     path('inscription/', authentication.views.creer_un_compte, name='inscription'),
     path('projet/<int:projet_id>', projet.views.projet_detail, name='view_projet'),
+    path('contribution/', projet.views.toutlescommentaires, name='contribution'),
 ]
 
 if settings.DEBUG:
