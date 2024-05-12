@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 import authentication.views
 import projet.views
+import chat.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -31,6 +32,10 @@ urlpatterns = [
     path('inscription/', authentication.views.creer_un_compte, name='inscription'),
     path('projet/<int:projet_id>', projet.views.projet_detail, name='view_projet'),
     path('contribution/', projet.views.toutlescommentaires, name='contribution'),
+    path('chat/', chat.views.afficher_groupes_chat, name='groupe_list'),
+    path('chat/<int:groupe_chat_id>', chat.views.discussion, name='discussion'),
+    path('chat/messages/<int:groupe_chat_id>', chat.views.liste_messaages, name='messages'),
+    path('chat/creategroupe', chat.views.creer_groupchat, name='creategroupe'),
 ]
 
 if settings.DEBUG:

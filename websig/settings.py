@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "authentication",
     "projet",
     "map",
+    "chat",
 ]
 
 MIDDLEWARE = [

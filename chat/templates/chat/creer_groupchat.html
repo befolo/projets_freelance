@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block style %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="{% static 'map/ressources/jQuery/jquery-3.7.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'chat/style_discuss.css' %}">
+{% endblock style %}
+
+
+
+{% block content %}
+<div class="centre">
+    <h2 class="title_file"> Créer Un Nouveau Groupe <a class="link" href="{% url 'groupe_list' %}">Voir la liste de vos groupes</a></h2>
+    <div class="container_file div_file">
+        <form id="post-form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <button type="submit" class="login__button">Creer un nouveau Groupe</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

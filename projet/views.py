@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from map.models import SpatialProjet
 from django.shortcuts import get_object_or_404
-from .models import Projet, Commentaire, PartiPrenante, Photo
+from .models import Projet, Commentaire, PartiPrenante
 from django.http import JsonResponse
 from itertools import chain
 from .forms import CommentaireForm, PhotoForm

@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block style %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="{% static 'map/ressources/jQuery/jquery-3.7.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'chat/style_discuss.css' %}">
+{% endblock style %}
+
+
+
+{% block content %}
+<div class="centre">
+    <h2 class="title_file"> {{groupechat.titre}} - Groupe  du projet  {{groupechat.projet.titre}}<a class="link" href="{% url 'groupe_list' %}">Changer de Groupe</a></h2>
+    <p>{{groupechat.sujet}}</p>
+    <div id="display">
+        <!-- Les messages de chat seront ajoutés ici -->
+        <p>Aucun message présent</p>
+    </div>
+    <div class="container_file div_file">
+        <form id="post-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <textarea id="{{ form.contenu.id_for_label }}" class="message" name="{{ form.contenu.html_name }}" cols="130" rows="8" required>{{ form.contenu.value|default_if_none:'' }}</textarea>
+            <input type="file" id="{{ form.file.id_for_label }}" class="file" name="{{ form.file.html_name }}">
+            <input class="link" type="submit" value="Envoyer le message">
+        </form>
+    </div>
+
+<!-- Récupération des messages en ajax -->
+    <script>
+$(document).ready(function(){
+    var display = $("#display");
+    setInterval(function(){
+        $.ajax({
+            type: 'GET',
+            url: "/chat/messages/{{groupe_id}}",  // Utilisation de l'URL avec l'ID du groupe de chat
+            success: function(response){
+                console.log(response);
+                var isAtBottom = display.scrollTop() + display.innerHeight() >= display[0].scrollHeight;
+                $("#display").empty();
+                for (var key in response.messages) {
+                    var message = response.messages[key];
+                    var formattedDate = new Date(message.date_envoi).toLocaleString('fr-FR', {day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit'});
+                    var temp = "<div class='darker div_file'><b>" + message.auteur + "</b><p>" + message.contenu + "</p><span>" + formattedDate + "</span>";
+                    if (message.file_url) {
+                        if (message.is_image) {
+                            temp += "<br><img src='" + message.file_url + "' alt='Prévisualisation' width='200'>";
+                        } else {
+                            temp += "<br><a href='" + message.file_url + "' target='_blank'>Télécharger le fichier</a>";
+                        }
+                    }
+                    temp += "</div>";
+                    $("#display").append(temp);
+                }
+                // Scroll to the bottom of the chat window if the user is already at the bottom
+                if (isAtBottom) {
+                    $("#display").scrollTop($("#display")[0].scrollHeight);
+                }
+            },
+            error: function(response){
+                console.log('Une erreur s\'est produite');
+            }
+        });
+    }, 500);
+});
+
+    </script>
+<script>
+$(document).ready(function(){
+    $('#post-form').submit(function(e) {
+        e.preventDefault();
+        var form_data = new FormData(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '{% url "discussion" groupe_id %}',
+            data: form_data,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.success) {
+                        document.getElementById("{{ form.contenu.id_for_label }}").value = '';
+                        document.getElementById("{{ form.file.id_for_label }}").value = '';
+                    // Rafraîchir la liste des messages ou effectuer d'autres actions nécessaires
+                } else {
+                    alert('Une erreur s\'est produite lors de l\'envoi du message.');
+                }
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+                alert('Une erreur s\'est produite lors de l\'envoi du message.');
+            }
+        });
+    });
+});
+
+</script>
+</div>
+{% endblock content %}

@@ -1,0 +1,46 @@
+<!-- Gabarit spécifique (votre_template.html) -->
+{% extends 'index.html' %}
+{% load static %}
+{% load projet_extras %}
+
+{% block style %}
+    <title>Groupes de Discussions</title>
+    <link rel="stylesheet" href="{% static 'chat/stylegrp_list.css' %}">
+{% endblock style %}
+
+{% block content %}
+<h1 class="section_title title_fred">Groupes de Discussions</h1>
+{% if groupes_par_projet %}
+    {% for projet_data in groupes_par_projet %}
+    <h2 class="title_fred">{{ projet_data.projet.titre }}</h2>
+    <div class="container">
+        {% for groupe_chat in projet_data.groupes_chat %}
+        <div class="box">
+            <div class="image">
+                <h2>{{ groupe_chat.titre }}</h2>
+            </div>
+        <div class="name_job">Créer par {% get_poster_display groupe_chat.createur %} </br> {{ groupe_chat.date_created|get_posted_at_display }}</div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <p> {{ groupe_chat.sujet }}</p>
+        <div class="btns">
+            {% if request.user == groupe_chat.createur %}
+            <a href="#">Supprimer le groupe</a>
+            {% endif %}
+            <a href="{% url 'discussion' groupe_chat.id %}" class="open-popup">Discussion</a>
+        </div>
+      </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+{% else %}
+<h3 class="title_fred">Aucun groupe de chat disponible.</h3>
+{% endif %}
+<h3 class="title_fred">Créer un nouveau groupe de discussion <a href="{% url 'creategroupe' %}" class="open-popup">ICI</a>.</h3>
+
+{% endblock content %}
