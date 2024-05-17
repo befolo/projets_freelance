@@ -1,4 +1,5 @@
 {% load static %}
+
    <html lang="fr">
    <head>
       <meta charset="UTF-8">
@@ -27,6 +28,11 @@
                   <li class="nav__item">
                      <a href="{% url 'contribution' %}" class="nav__link">Comtributions</a>
                   </li>
+                  {% if request.session.est_participant %}
+                  <li class="nav__item">
+                     <a href="{% url 'groupe_list' %}" class="nav__link">CHATS PRIVEE</a>
+                  </li>
+                  {% endif %}
                   <li class="nav__item">
 
                      {% if user.is_authenticated %}

@@ -41,7 +41,7 @@ $(document).ready(function(){
                 for (var key in response.messages) {
                     var message = response.messages[key];
                     var formattedDate = new Date(message.date_envoi).toLocaleString('fr-FR', {day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit'});
-                    var temp = "<div class='darker div_file'><b>" + message.auteur + "</b><p>" + message.contenu + "</p><span>" + formattedDate + "</span>";
+                    var temp = "<div class='darker div_file'><b>" + message.auteur + " --  " + message.role + "</b><p>" + message.contenu + "</p><span>" + formattedDate + "</span>";
                     if (message.file_url) {
                         if (message.is_image) {
                             temp += "<br><img src='" + message.file_url + "' alt='Prévisualisation' width='200'>";
@@ -63,7 +63,6 @@ $(document).ready(function(){
         });
     }, 500);
 });
-
     </script>
 <script>
 $(document).ready(function(){

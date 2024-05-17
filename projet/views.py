@@ -29,7 +29,8 @@ def load_data(request):
                 "descrip": f"{elt.leprojet.descrip_reduit}",
                 "entreprise": f"{elt.leprojet.entreprise}",
                 "delais": f"{elt.leprojet.delais_execution}",
-                "financement": f"{elt.leprojet.financement}"
+                "financement": f"{elt.leprojet.financement}",
+                "link": f"{elt.leprojet.photo.image.url}"
             }
         })
 
@@ -44,11 +45,22 @@ def home(request):
         key=lambda instance: instance.leprojet.date_created,
         reverse=True
     )
-    context = {
-        "projets": projets
-    }
-    return render(request, 'map/map.html', context=context)
+    is_participant = False  # Par défaut, l'utilisateur n'est pas un participant
 
+    if request.user.is_authenticated:  # Vérifiez d'abord si l'utilisateur est authentifié
+        try:
+            is_participant = PartiPrenante.objects.filter(lepartiprenant=request.user).exists()
+            if is_participant:
+                request.session['est_participant'] = is_participant
+        except Exception:
+            pass
+
+    context = {
+        "projets": projets,
+        "est_participant": is_participant  # Ajoutez la variable est_participant au contexte
+    }
+
+    return render(request, 'map/map.html', context=context)
 
 def projet_detail(request, projet_id):
     projet = get_object_or_404(Projet, id=projet_id)

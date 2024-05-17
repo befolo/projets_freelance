@@ -36,6 +36,7 @@ urlpatterns = [
     path('chat/<int:groupe_chat_id>', chat.views.discussion, name='discussion'),
     path('chat/messages/<int:groupe_chat_id>', chat.views.liste_messaages, name='messages'),
     path('chat/creategroupe', chat.views.creer_groupchat, name='creategroupe'),
+    path('chat/<int:groupe_chat_id>/editspp', chat.views.edit_spp_groupechat, name='edit_grpchat'),
 ]
 
 if settings.DEBUG:

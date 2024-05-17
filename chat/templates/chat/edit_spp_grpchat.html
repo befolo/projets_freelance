@@ -1,0 +1,31 @@
+
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block style %}
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>GroupeChat Modifier</title>
+<link rel="stylesheet" href="{% static 'chat/style_discuss.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="centre" >
+    <h2 class="title_file"> {{groupechat.titre}} - Groupe  du projet  {{groupechat.projet.titre}}<a class="link" href="{% url 'groupe_list' %}">Changer de Groupe</a></h2>
+    <div class="container_file div_file">
+        <h2>Modifier ce groupe</h2>
+        <form method="post" class="login__form">
+            {{ edit_form.as_div }}
+            {% csrf_token %}
+            <button type="submit" class="login__button">Sauvegarder</button>
+        </form>
+        <hr>
+        <h3>Supprimer ce groupe ?</h3>
+        <form method="post" class="login__form">
+            {{ delete_form }}
+            {% csrf_token %}
+            <button type="submit" class="login__button">Supprimer</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

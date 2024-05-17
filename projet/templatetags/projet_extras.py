@@ -1,5 +1,6 @@
 from django import template
 from django.utils import timezone
+import projet.models as models
 
 MINUTE = 60
 HOUR = 60 * MINUTE
@@ -28,4 +29,5 @@ def get_poster_display(context, user):
     if user == context['user']:
         return 'vous'
     return user.username
+
 

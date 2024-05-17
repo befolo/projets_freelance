@@ -8,7 +8,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 var myIcon = L.icon({
     iconUrl: staticUrl,
-    iconSize: [35, 35]
+    iconSize: [50, 50]
 });
 
 function showPopup(feature, layer){
@@ -23,8 +23,9 @@ function makePopupcontent(office){
     return `
         <div>
             <h4>${office.properties.titre}</h4>
+            <img src=${office.properties.link} alt="">
             <p>${office.properties.descrip}</p>
-        </div
+        </div>
     `
 }
 

@@ -9,6 +9,7 @@ class ProjetChoiceField(forms.ModelChoiceField):
 
 
 class GroupeChatForm(forms.ModelForm):
+    edit_grpchat = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     projet = ProjetChoiceField(queryset=None)
 
     class Meta:
@@ -30,3 +31,8 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['contenu', 'file']
+
+
+class DeleteGroupeChatForm(forms.Form):
+    delete_grpchat = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+

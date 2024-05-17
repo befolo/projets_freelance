@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import GroupeChatForm, MessageForm
 from .models import GroupeChat, Message
 from projet.models import PartiPrenante
 from django.http import JsonResponse
+from itertools import chain
+
+from . import forms, models
 
 
 @login_required
@@ -14,6 +16,11 @@ def afficher_groupes_chat(request):
 
     # Récupérer tous les groupes de chat associés à ces projets
     groupes_chat = GroupeChat.objects.filter(projet__in=projets_participant)
+    groupes_chat = sorted(
+        chain(groupes_chat),
+        key=lambda instance: instance.date_created,
+        reverse=True
+    )
 
     # Regrouper les groupes de chat par projet
     groupes_par_projet = {}
@@ -48,28 +55,29 @@ def creer_groupchat(request):
 
 
 @login_required
-def supprimer_groupe_chat(request, groupe_chat_id):
-    groupe_chat = get_object_or_404(GroupeChat, id=groupe_chat_id)
+def edit_spp_groupechat(request, groupe_chat_id):
+    groupchat = get_object_or_404(models.GroupeChat, id=groupe_chat_id)
+    edit_form = forms.GroupeChatForm(instance=groupchat, user=request.user)
+    delete_form = forms.DeleteGroupeChatForm()
     if request.method == 'POST':
-        groupe_chat.delete()
-        messages.success(request, 'Le groupe de chat a été supprimé avec succès.')
-        return redirect('nom_de_la_vue_pour_afficher_les_groupes')
-
-    context = {'groupe_chat': groupe_chat}
-    return render(request, 'supprimer_groupe_chat.html', context)
-
-
-@login_required
-def supprimer_message(request, message_id):
-    message = get_object_or_404(Message, id=message_id)
-    groupe_chat = message.groupechat  # Récupérer le groupe de chat associé au message
-    if request.method == 'POST':
-        message.delete()
-        messages.success(request, 'Le message a été supprimé avec succès.')
-        return redirect('nom_de_la_vue_pour_afficher_le_groupe', groupe_chat_id=groupe_chat.id)
-
-    context = {'message': message, 'groupe_chat': groupe_chat}
-    return render(request, 'supprimer_message.html', context)
+        if 'edit_grpchat' in request.POST:
+            edit_form = forms.GroupeChatForm(request.POST, instance=groupchat, user=request.user)
+            if edit_form.is_valid():
+                print("oui 2")
+                edit_form.save()
+                return redirect('groupe_list')
+        if 'delete_grpchat' in request.POST:
+            delete_form = forms.DeleteGroupeChatForm(request.POST)
+            print("oui 1")
+            if delete_form.is_valid():
+                groupchat.delete()
+                return redirect('groupe_list')
+    context = {
+        'edit_form': edit_form,
+        'delete_form': delete_form,
+        'groupechat': groupchat
+    }
+    return render(request, 'chat/edit_spp_grpchat.html', context=context)
 
 
 @login_required
@@ -99,14 +107,17 @@ def liste_messaages(request, groupe_chat_id):
 
     messages_list = []
     for message in messages_groupe:
+        partie_prenante = PartiPrenante.objects.filter(lepartiprenant=message.auteur, projet=groupe_chat.projet).first()
+        role_partie_prenante = partie_prenante.get_role_display()
         message_data = {
             'id': message.id,
             'contenu': message.contenu,
-            'date_envoi': message.date_envoi.strftime('%d/%m/%Y %H:%M'),  # Format de date personnalisé
+            'date_envoi': message.date_envoi,  # Format de date personnalisé
             'auteur': message.auteur.username,
             'file_url': message.file.url if message.file else None,  # URL du fichier s'il existe
-            'is_image': message.file.url.endswith(('png', 'jpg', 'jpeg', 'gif')) if message.file else False
             # Vérification si le fichier est une image
+            'is_image': message.file.url.endswith(('png', 'jpg', 'jpeg', 'gif')) if message.file else False,
+            'role': role_partie_prenante,
         }
         messages_list.append(message_data)
 

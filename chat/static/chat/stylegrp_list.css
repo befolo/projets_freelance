@@ -88,17 +88,21 @@ color: #17c0eb
 .btns a:first-child{
   background: none;
   margin-right: 5px;
+  text-align: center;
 }
 .btns a:last-child{
   color: #070707;
   margin-left: 5px;
+  text-align: center;
 }
 .btns a:first-child:hover{
   background: #8e44ad;
   color: #fff;
+  text-align: center;
 }
 .btns a:hover{
   color: #fff;
+  text-align: center;
 }
 @media (max-width:1045px){
   .container .box{
